@@ -21,27 +21,27 @@ public class TutorialServerImpl implements TutorialServer {
     TutorialMapper tutorialMapper;
 
     @Override
-    public ResponseResult<NullData> insertTutorial(Integer userId, TutorialDTO tutorialDTO) {
+    public ResponseResult<NullData> insertTutorial(String userId, TutorialDTO tutorialDTO) {
         return null;
     }
 
     @Override
-    public ResponseResult<NullData> deleteTutorial(Integer userId, Integer tutorialId) {
+    public ResponseResult<NullData> deleteTutorial(String userId, Integer tutorialId) {
         return null;
     }
 
     @Override
-    public ResponseResult<NullData> updateTutorial(Integer userId, TutorialDTO tutorialDTO) {
+    public ResponseResult<NullData> updateTutorial(String userId, TutorialDTO tutorialDTO) {
         return null;
     }
 
     @Override
-    public ResponseResult<TutorialDTO> selectTutorial(Integer userId, Integer tutorialId) {
+    public ResponseResult<TutorialDTO> selectTutorial(String userId, Integer tutorialId) {
         return null;
     }
 
     @Override
-    public ResponseResult<List<TutorialDTO>> selectAllTutorial(Integer userId) {
+    public ResponseResult<List<TutorialDTO>> selectAllTutorial(String userId) {
         return null;
     }
 }

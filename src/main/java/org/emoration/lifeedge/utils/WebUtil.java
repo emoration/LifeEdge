@@ -73,32 +73,32 @@ public class WebUtil {
         return ip;
     }
 
-    /**
-     * @Description 获取某个ip对某个接口的请求次数
-     * @Date 2023/11/23
-     */
-    public Integer getRequestNumber(String methodName, String IpAddress) {
+//    /**
+//     * @Description 获取某个ip对某个接口的请求次数
+//     * @Date 2023/11/23
+//     */
+//    public Integer getRequestNumber(String methodName, String IpAddress) {
+//
+//        if(redisUtil.hasKey(IpAddress + " : " + methodName))
+//            return (Integer) redisUtil.get(IpAddress + " : " + methodName);
+//        else
+//            return 0;
+//
+//    }
 
-        if(redisUtil.hasKey(IpAddress + " : " + methodName))
-            return (Integer) redisUtil.get(IpAddress + " : " + methodName);
-        else
-            return 0;
-
-    }
-
-    /**
-     * @Description 增加某个ip对某个接口的请求次数
-     * @Date 2023/11/23
-     */
-    public void addRequestNumber(String methodName, String IpAddress) {
-
-        if(redisUtil.hasKey(IpAddress + " : " + methodName)) {
-            redisUtil.set(IpAddress + " : " + methodName, (Integer) redisUtil.get(IpAddress + " : " + methodName) + 1);
-        } else {
-            redisUtil.set(IpAddress + " : " + methodName , 1);
-        }
-
-    }
+//    /**
+//     * @Description 增加某个ip对某个接口的请求次数
+//     * @Date 2023/11/23
+//     */
+//    public void addRequestNumber(String methodName, String IpAddress) {
+//
+//        if(redisUtil.hasKey(IpAddress + " : " + methodName)) {
+//            redisUtil.set(IpAddress + " : " + methodName, (Integer) redisUtil.get(IpAddress + " : " + methodName) + 1);
+//        } else {
+//            redisUtil.set(IpAddress + " : " + methodName , 1);
+//        }
+//
+//    }
 
 
 }

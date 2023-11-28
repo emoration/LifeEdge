@@ -23,32 +23,32 @@ public class ReminderServerImpl implements ReminderServer {
     ReminderMapper reminderMapper;
 
     @Override
-    public ResponseResult<NullData> insertReminder(Integer userId, ReminderDTO reminderDTO) {
+    public ResponseResult<NullData> insertReminder(String userId, ReminderDTO reminderDTO) {
         return null;
     }
 
     @Override
-    public ResponseResult<NullData> deleteReminder(Integer userId, Integer reminderId) {
+    public ResponseResult<NullData> deleteReminder(String userId, Integer reminderId) {
         return null;
     }
 
     @Override
-    public ResponseResult<NullData> updateReminder(Integer userId, ReminderDTO reminderDTO) {
+    public ResponseResult<NullData> updateReminder(String userId, ReminderDTO reminderDTO) {
         return null;
     }
 
     @Override
-    public ResponseResult<Reminder> selectOneReminder(Integer userId, Integer reminderId) {
+    public ResponseResult<Reminder> selectOneReminder(String userId, Integer reminderId) {
         return null;
     }
 
     @Override
-    public ResponseResult<List<Reminder>> selectRangeReminder(Integer userId, QueryDateRangeDTO queryDateRangeDTO) {
+    public ResponseResult<List<Reminder>> selectRangeReminder(String userId, QueryDateRangeDTO queryDateRangeDTO) {
         return null;
     }
 
     @Override
-    public ResponseResult<List<Reminder>> selectAllReminder(Integer userId) {
+    public ResponseResult<List<Reminder>> selectAllReminder(String userId) {
         return null;
     }
 }

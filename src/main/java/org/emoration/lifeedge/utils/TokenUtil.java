@@ -20,7 +20,7 @@ import java.util.List;
 public class TokenUtil {
 
     @Value("${token.signature}")
-    private static String signature;
+    private String signature = "czh123";
 
     @Autowired
     UserMapper userMapper;
@@ -32,7 +32,7 @@ public class TokenUtil {
      * @Description 通过UserId获得token，自动设置过期时间
      * @Date 2023/11/23
      */
-    public String getTokenByUserId(Integer userId) {
+    public String getTokenByUserId(String userId) {
         JwtBuilder jwtBuilder = Jwts.builder();
         String token = jwtBuilder.setHeaderParam("typ", "JWT")
                 .setHeaderParam("alg", "HS256")
@@ -91,9 +91,9 @@ public class TokenUtil {
      * @Description 解析token获取userId
      * @Date 2023/11/23
      */
-    public Integer parseTokenToUserId(String token) {
+    public String parseTokenToUserId(String token) {
         Claims claims = parseTokenToClaims(token);
-        return claims.get("userId", Integer.class);
+        return claims.get("userId", String.class);
     }
 
     /**
@@ -101,7 +101,7 @@ public class TokenUtil {
      * @Date 2023/11/23
      */
     public User parseTokenToUser(String token) {
-        Integer userId = parseTokenToUserId(token);
+        String userId = parseTokenToUserId(token);
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("user_id", userId);
         return userMapper.selectOne(wrapper);

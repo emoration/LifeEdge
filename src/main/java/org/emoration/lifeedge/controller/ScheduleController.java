@@ -9,11 +9,12 @@ import org.emoration.lifeedge.controller.DTO.ScheduleDTO;
 import org.emoration.lifeedge.pojo.Event;
 import org.emoration.lifeedge.service.CourseServer;
 import org.emoration.lifeedge.service.ScheduleServer;
+import org.emoration.lifeedge.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author czh
@@ -23,49 +24,148 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/user/schedule") // @RequestMapping("/user/schedule/course")
-public abstract class ScheduleController{
+public class ScheduleController {
     @Autowired
     ScheduleServer scheduleServer;
     @Autowired
     CourseServer courseServer;
+    @Autowired
+    TokenUtil tokenUtil;
 
-    
-    public ResponseResult<NullData> insertSchedule(String token, ScheduleDTO scheduleDTO) {
-        return null;
+    @GetMapping("/hello")
+    public String hello() {
+        return "hello";
     }
 
-    
-    public ResponseResult<NullData> deleteSchedule(String token, Integer scheduleId) {
-        return null;
+    @PostMapping("/create")
+    public ResponseResult<NullData> insertSchedule(@RequestHeader("Authorization") String token, @RequestBody ScheduleDTO scheduleDTO) {
+        String userId;
+        try {
+            userId = tokenUtil.parseTokenToUserId(token);
+            if (userId == null) throw new Exception();
+        } catch (Exception e) {
+            return ResponseResult.error("token错误");
+        }
+        if (scheduleDTO == null)
+            return ResponseResult.fail("日程信息不能为空");
+        if (scheduleDTO.getBeginAt() > scheduleDTO.getEndAt())
+            return ResponseResult.fail("开始时间不能大于结束时间");
+
+        return scheduleServer.insertSchedule(userId, scheduleDTO);
     }
 
-    
-    public ResponseResult<NullData> updateSchedule(String token, ScheduleDTO scheduleDTO) {
-        return null;
+    @DeleteMapping("/delete/{scheduleId}")
+    public ResponseResult<NullData> deleteSchedule(@RequestHeader("Authorization") String token, @PathVariable Integer scheduleId) {
+        String userId;
+        try {
+            userId = tokenUtil.parseTokenToUserId(token);
+            if (userId == null) throw new Exception();
+        } catch (Exception e) {
+            return ResponseResult.error("token错误");
+        }
+        if (scheduleId == null)
+            return ResponseResult.fail("日程id不能为空");
+
+        return scheduleServer.deleteSchedule(userId, scheduleId);
     }
 
-    
-    public ResponseResult<Event> selectOneSchedule(String token, Integer scheduleId) {
-        return null;
+    @PutMapping("/change/{scheduleId}")
+    public ResponseResult<NullData> updateSchedule(@RequestHeader("Authorization") String token, @RequestBody ScheduleDTO scheduleDTO, @PathVariable Integer scheduleId) {
+        String userId;
+        try {
+            userId = tokenUtil.parseTokenToUserId(token);
+            if (userId == null) throw new Exception();
+        } catch (Exception e) {
+            return ResponseResult.error("token错误");
+        }
+        if (scheduleId == null)
+            return ResponseResult.fail("日程id不能为空");
+        if (scheduleDTO == null)
+            return ResponseResult.fail("日程信息不能为空");
+        if (scheduleDTO.getBeginAt() > scheduleDTO.getEndAt())
+            return ResponseResult.fail("开始时间不能大于结束时间");
+
+        return scheduleServer.updateSchedule(userId, scheduleId, scheduleDTO);
     }
 
-    
-    public ResponseResult<List<Event>> selectRangeSchedule(String token, QueryDateRangeDTO queryDateRangeDTO) {
-        return null;
+    @GetMapping("/selectOne/{scheduleId}")
+    public ResponseResult<Event> selectOneSchedule(@RequestHeader("Authorization") String token, @PathVariable Integer scheduleId) {
+        String userId;
+        try {
+            userId = tokenUtil.parseTokenToUserId(token);
+            if (userId == null) throw new Exception();
+        } catch (Exception e) {
+            return ResponseResult.error("token错误");
+        }
+        if (scheduleId == null)
+            return ResponseResult.fail("日程id不能为空");
+
+        return scheduleServer.selectOneSchedule(userId, scheduleId);
     }
 
-    
-    public ResponseResult<List<Event>> selectAllSchedule(Integer userId) {
-        return null;
-    }
-    
-    public ResponseResult<NullData> importCourse(String token, String courseInfo) {
-        return null;
+    @RequestMapping("/selectRange")
+    public ResponseResult<Map<String, Object>> selectRangeSchedule(
+            @RequestHeader("Authorization") String token,
+            @RequestBody QueryDateRangeDTO queryDateRangeDTO) {
+        String userId;
+        try {
+            userId = tokenUtil.parseTokenToUserId(token);
+            if (userId == null) throw new Exception();
+        } catch (Exception e) {
+            return ResponseResult.error("token错误");
+        }
+        if (queryDateRangeDTO == null)
+            return ResponseResult.fail("查询范围不能为空");
+
+        return scheduleServer.selectRangeSchedule(userId, queryDateRangeDTO);
     }
 
-    
-    public ResponseResult<NullData> inputCourse(String token, CourseDTO courseDTO) {
-        return null;
+    @GetMapping("/selectAll")
+    public ResponseResult<Map<String, Object>> selectAllSchedule(@RequestHeader("Authorization") String token) {
+        String userId;
+        try {
+            userId = tokenUtil.parseTokenToUserId(token);
+            if (userId == null) throw new Exception();
+        } catch (Exception e) {
+            return ResponseResult.error("token错误");
+        }
+
+        return scheduleServer.selectAllSchedule(userId);
+    }
+
+    @PostMapping("/importSome")
+    public ResponseResult<NullData> importCourse(@RequestHeader("Authorization") String token, @RequestBody Map<String, Object> map) {
+        String userId;
+        try {
+            userId = tokenUtil.parseTokenToUserId(token);
+            if (userId == null) throw new Exception();
+        } catch (Exception e) {
+            return ResponseResult.error("token错误");
+        }
+        String courseInfo;
+        try {
+            courseInfo = (String) map.get("courseInfo");
+            if (courseInfo == null) throw new Exception();
+        } catch (Exception e) {
+            return ResponseResult.error("课程信息错误");
+        }
+
+        return courseServer.importCourse(userId, courseInfo);
+    }
+
+    @PostMapping("/importOne")
+    public ResponseResult<NullData> inputCourse(@RequestHeader("Authorization") String token, @RequestBody CourseDTO courseDTO) {
+        String userId;
+        try {
+            userId = tokenUtil.parseTokenToUserId(token);
+            if (userId == null) throw new Exception();
+        } catch (Exception e) {
+            return ResponseResult.error("token错误");
+        }
+        if (courseDTO == null)
+            return ResponseResult.error("课程信息错误");
+
+        return courseServer.inputCourse(userId, courseDTO);
     }
 
 }

@@ -19,12 +19,12 @@ public class CourseServerImpl implements CourseServer {
     EventMapper eventMapper;
 
     @Override
-    public ResponseResult<NullData> importCourse(Integer userId, String courseInfo) {
+    public ResponseResult<NullData> importCourse(String userId, String courseInfo) {
         return null;
     }
 
     @Override
-    public ResponseResult<NullData> inputCourse(Integer userId, CourseDTO courseDTO) {
+    public ResponseResult<NullData> inputCourse(String userId, CourseDTO courseDTO) {
         return null;
     }
 }

@@ -1,6 +1,10 @@
 package org.emoration.lifeedge.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @Author czh
@@ -8,10 +12,11 @@ import lombok.Data;
  * @Date 2023/11/16
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
-    private Integer id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private String id;
     private String pictureUrl;
     private String username;
-    private String password;
-
 }

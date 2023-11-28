@@ -12,13 +12,13 @@ import java.util.List;
  * @Date 2023/11/16
  */
 public interface TutorialServer {
-    ResponseResult<NullData> insertTutorial(Integer userId, TutorialDTO tutorialDTO);
+    ResponseResult<NullData> insertTutorial(String userId, TutorialDTO tutorialDTO);
 
-    ResponseResult<NullData> deleteTutorial(Integer userId, Integer tutorialId);
+    ResponseResult<NullData> deleteTutorial(String userId, Integer tutorialId);
 
-    ResponseResult<NullData> updateTutorial(Integer userId, TutorialDTO tutorialDTO);
+    ResponseResult<NullData> updateTutorial(String userId, TutorialDTO tutorialDTO);
 
-    ResponseResult<TutorialDTO> selectTutorial(Integer userId, Integer tutorialId);
+    ResponseResult<TutorialDTO> selectTutorial(String userId, Integer tutorialId);
 
-    ResponseResult<List<TutorialDTO>> selectAllTutorial(Integer userId);
+    ResponseResult<List<TutorialDTO>> selectAllTutorial(String userId);
 }

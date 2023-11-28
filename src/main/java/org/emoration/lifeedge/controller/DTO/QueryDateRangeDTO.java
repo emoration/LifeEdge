@@ -1,6 +1,8 @@
 package org.emoration.lifeedge.controller.DTO;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @Author czh
@@ -8,6 +10,8 @@ import lombok.Data;
  * @Date 2023/11/16
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class QueryDateRangeDTO {
     /**
      * 最早日期

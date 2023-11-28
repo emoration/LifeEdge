@@ -7,6 +7,7 @@ import org.emoration.lifeedge.controller.DTO.ScheduleDTO;
 import org.emoration.lifeedge.pojo.Event;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author czh
@@ -14,15 +15,15 @@ import java.util.List;
  * @Date 2023/11/16
  */
 public interface ScheduleServer {
-    ResponseResult<NullData> insertSchedule(Integer userId, ScheduleDTO scheduleDTO);
+    ResponseResult<NullData> insertSchedule(String userId, ScheduleDTO scheduleDTO);
 
-    ResponseResult<NullData> deleteSchedule(Integer userId, Integer scheduleId);
+    ResponseResult<NullData> deleteSchedule(String userId, Integer scheduleId);
 
-    ResponseResult<NullData> updateSchedule(Integer userId, ScheduleDTO scheduleDTO);
+    ResponseResult<NullData> updateSchedule(String userId, Integer scheduleId, ScheduleDTO scheduleDTO);
 
-    ResponseResult<Event> selectOneSchedule(Integer userId, Integer scheduleId);
+    ResponseResult<Event> selectOneSchedule(String userId, Integer scheduleId);
 
-    ResponseResult<List<Event>> selectRangeSchedule(Integer userId, QueryDateRangeDTO queryDateRangeDTO);
+    ResponseResult<Map<String, Object>> selectRangeSchedule(String userId, QueryDateRangeDTO queryDateRangeDTO);
 
-    ResponseResult<List<Event>> selectAllSchedule(Integer userId);
+    ResponseResult<Map<String, Object>> selectAllSchedule(String userId);
 }

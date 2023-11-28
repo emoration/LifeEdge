@@ -1,5 +1,7 @@
 package org.emoration.lifeedge.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 /**
@@ -9,14 +11,14 @@ import lombok.Data;
  */
 @Data
 public class Event {
-    private Integer id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
     private String name;
     private String description;
     private Long beginAt;
     private Long endAt;
     private Integer color;
-    private Integer repeatType;
-    private Integer reminderId;
-    private Integer ownerId;
+    private Long reminderId;
+    private String ownerId;
 
 }

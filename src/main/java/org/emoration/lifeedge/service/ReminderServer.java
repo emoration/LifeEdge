@@ -14,15 +14,15 @@ import java.util.List;
  * @Date 2023/11/16
  */
 public interface ReminderServer {
-    ResponseResult<NullData> insertReminder(Integer userId, ReminderDTO reminderDTO);
+    ResponseResult<NullData> insertReminder(String userId, ReminderDTO reminderDTO);
 
-    ResponseResult<NullData> deleteReminder(Integer userId, Integer reminderId);
+    ResponseResult<NullData> deleteReminder(String userId, Integer reminderId);
 
-    ResponseResult<NullData> updateReminder(Integer userId, ReminderDTO reminderDTO);
+    ResponseResult<NullData> updateReminder(String userId, ReminderDTO reminderDTO);
 
-    ResponseResult<Reminder> selectOneReminder(Integer userId, Integer reminderId);
+    ResponseResult<Reminder> selectOneReminder(String userId, Integer reminderId);
 
-    ResponseResult<List<Reminder>> selectRangeReminder(Integer userId, QueryDateRangeDTO queryDateRangeDTO);
+    ResponseResult<List<Reminder>> selectRangeReminder(String userId, QueryDateRangeDTO queryDateRangeDTO);
 
-    ResponseResult<List<Reminder>> selectAllReminder(Integer userId);
+    ResponseResult<List<Reminder>> selectAllReminder(String userId);
 }

@@ -1,5 +1,7 @@
 package org.emoration.lifeedge.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 /**
@@ -9,7 +11,8 @@ import lombok.Data;
  */
 @Data
 public class Reminder {
-    private Integer id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
     private Integer type;
     private Long remindAt;
     private Integer repeatTimes;

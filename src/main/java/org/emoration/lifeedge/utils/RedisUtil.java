@@ -55,7 +55,8 @@ public class RedisUtil {
      * @param key
      */
     public void set(String key, String value, Integer expire) {
-        redisTemplate.opsForValue().set(key, value, expire, TimeUnit.SECONDS);
+        // FIXME 先注释掉，不然会报错
+//        redisTemplate.opsForValue().set(key, value, expire, TimeUnit.SECONDS);
     }
 
     /**

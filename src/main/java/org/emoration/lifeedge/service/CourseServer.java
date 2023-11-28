@@ -10,7 +10,7 @@ import org.emoration.lifeedge.controller.DTO.CourseDTO;
  * @Date 2023/11/16
  */
 public interface CourseServer {
-    ResponseResult<NullData> importCourse(Integer userId, String courseInfo);
+    ResponseResult<NullData> importCourse(String userId, String courseInfo);
 
-    ResponseResult<NullData> inputCourse(Integer userId, CourseDTO courseDTO);
+    ResponseResult<NullData> inputCourse(String userId, CourseDTO courseDTO);
 }

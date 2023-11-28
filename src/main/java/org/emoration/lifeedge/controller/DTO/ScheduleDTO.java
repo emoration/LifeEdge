@@ -1,6 +1,9 @@
 package org.emoration.lifeedge.controller.DTO;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 /**
  * @Author czh
@@ -8,7 +11,14 @@ import lombok.Data;
  * @Date 2023/11/16
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ScheduleDTO {
+    /**
+     * 事件的id
+     */
+    @Nullable
+    private Integer id;
     /**
      * 事件的名称
      */
@@ -29,8 +39,4 @@ public class ScheduleDTO {
      * RGB压缩表示(实际最多占用int32位，如：0xFFFFFF)
      */
     private Integer color;
-    /**
-     * 枚举:1日/2周/3月/4年/5工作日
-     */
-    private Integer repeat;
 }
