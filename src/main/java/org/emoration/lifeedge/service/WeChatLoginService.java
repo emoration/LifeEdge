@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * @Author czh
- * @Description TODO
+ * @Description 微信登录
  * @Date 2023/11/27
  */
 public interface WeChatLoginService {

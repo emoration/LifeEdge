@@ -15,12 +15,12 @@ import java.util.Map;
 
 /**
  * @Author czh
- * @Description TODO
+ * @Description Tutorial
  * @Date 2023/11/16
  */
 @Slf4j
 @RestController
-@RequestMapping("/") // Tutorial
+@RequestMapping("/")
 public class TutorialController {
     @Autowired
     TutorialServer tutorialServer;
