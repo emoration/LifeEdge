@@ -55,7 +55,7 @@ public class ScheduleController {
     }
 
     @DeleteMapping("/delete/{scheduleId}")
-    public ResponseResult<NullData> deleteSchedule(@RequestHeader("Authorization") String token, @PathVariable Integer scheduleId) {
+    public ResponseResult<NullData> deleteSchedule(@RequestHeader("Authorization") String token, @PathVariable Long scheduleId) {
         String userId;
         try {
             userId = tokenUtil.parseTokenToUserId(token);
@@ -70,7 +70,7 @@ public class ScheduleController {
     }
 
     @PutMapping("/change/{scheduleId}")
-    public ResponseResult<NullData> updateSchedule(@RequestHeader("Authorization") String token, @RequestBody ScheduleDTO scheduleDTO, @PathVariable Integer scheduleId) {
+    public ResponseResult<NullData> updateSchedule(@RequestHeader("Authorization") String token, @RequestBody ScheduleDTO scheduleDTO, @PathVariable Long scheduleId) {
         String userId;
         try {
             userId = tokenUtil.parseTokenToUserId(token);
@@ -89,7 +89,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/selectOne/{scheduleId}")
-    public ResponseResult<Event> selectOneSchedule(@RequestHeader("Authorization") String token, @PathVariable Integer scheduleId) {
+    public ResponseResult<Event> selectOneSchedule(@RequestHeader("Authorization") String token, @PathVariable Long scheduleId) {
         String userId;
         try {
             userId = tokenUtil.parseTokenToUserId(token);
@@ -120,6 +120,22 @@ public class ScheduleController {
         return scheduleServer.selectRangeSchedule(userId, queryDateRangeDTO);
     }
 
+    @RequestMapping("/selectTerm")
+    public ResponseResult<Map<String, Object>> selectTermSchedule(
+            @RequestHeader("Authorization") String token) {
+        String userId;
+        try {
+            userId = tokenUtil.parseTokenToUserId(token);
+            if (userId == null) throw new Exception();
+        } catch (Exception e) {
+            return ResponseResult.error("token错误");
+        }
+        QueryDateRangeDTO queryDateRangeDTO = new QueryDateRangeDTO();
+        queryDateRangeDTO.setEarliestOn(1693152000);
+        queryDateRangeDTO.setLatestOn(1706457600);
+        return scheduleServer.selectRangeSchedule(userId, queryDateRangeDTO);
+    }
+
     @GetMapping("/selectAll")
     public ResponseResult<Map<String, Object>> selectAllSchedule(@RequestHeader("Authorization") String token) {
         String userId;
@@ -133,7 +149,7 @@ public class ScheduleController {
         return scheduleServer.selectAllSchedule(userId);
     }
 
-    @PostMapping("/importSome")
+    @PostMapping("/course/importSome")
     public ResponseResult<NullData> importCourse(@RequestHeader("Authorization") String token, @RequestBody Map<String, Object> map) {
         String userId;
         try {
@@ -153,7 +169,7 @@ public class ScheduleController {
         return courseServer.importCourse(userId, courseInfo);
     }
 
-    @PostMapping("/importOne")
+    @PostMapping("/course/importOne")
     public ResponseResult<NullData> inputCourse(@RequestHeader("Authorization") String token, @RequestBody CourseDTO courseDTO) {
         String userId;
         try {

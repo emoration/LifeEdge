@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class ResponseResult<T> {
 
     //状态码
-    private Integer code;
+    private Integer status;
 
     //返回信息
     private String msg;
@@ -23,22 +23,22 @@ public class ResponseResult<T> {
     //返回数据
     private T data;
 
-    public ResponseResult(Integer code) {
-        this.code = code;
+    public ResponseResult(Integer status) {
+        this.status = status;
     }
 
-    public ResponseResult(Integer code, String msg) {
-        this.code = code;
+    public ResponseResult(Integer status, String msg) {
+        this.status = status;
         this.msg = msg;
     }
 
-    public ResponseResult(Integer code, T data) {
-        this.code = code;
+    public ResponseResult(Integer status, T data) {
+        this.status = status;
         this.data = data;
     }
 
-    public ResponseResult(Integer code, String msg, T data) {
-        this.code = code;
+    public ResponseResult(Integer status, String msg, T data) {
+        this.status = status;
         this.msg = msg;
         this.data = data;
     }

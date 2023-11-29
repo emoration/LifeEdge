@@ -20,7 +20,7 @@ public class ReminderDTO {
     /**
      * 时间戳(实际最小单位到分钟)
      */
-    private Integer remindAt;
+    private Long remindAt;
     /**
      * 提醒失败后 重复提醒的次数
      */

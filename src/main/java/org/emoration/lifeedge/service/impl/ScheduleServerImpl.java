@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 /**
  * @Author czh
  * @Description TODO
@@ -44,7 +45,7 @@ public class ScheduleServerImpl implements ScheduleServer {
     }
 
     @Override
-    public ResponseResult<NullData> deleteSchedule(String userId, Integer scheduleId) {
+    public ResponseResult<NullData> deleteSchedule(String userId, Long scheduleId) {
 
         QueryWrapper<Event> eventQueryWrapper = new QueryWrapper<>();
         eventQueryWrapper.eq("id", scheduleId);
@@ -57,7 +58,7 @@ public class ScheduleServerImpl implements ScheduleServer {
     }
 
     @Override
-    public ResponseResult<NullData> updateSchedule(String userId, Integer scheduleId, ScheduleDTO scheduleDTO) {
+    public ResponseResult<NullData> updateSchedule(String userId, Long scheduleId, ScheduleDTO scheduleDTO) {
         QueryWrapper<Event> eventQueryWrapper = new QueryWrapper<>();
         eventQueryWrapper.eq("id", scheduleId);
         eventQueryWrapper.eq("owner_id", userId);
@@ -84,7 +85,7 @@ public class ScheduleServerImpl implements ScheduleServer {
     }
 
     @Override
-    public ResponseResult<Event> selectOneSchedule(String userId, Integer scheduleId) {
+    public ResponseResult<Event> selectOneSchedule(String userId, Long scheduleId) {
         QueryWrapper<Event> eventQueryWrapper = new QueryWrapper<>();
         eventQueryWrapper.eq("id", scheduleId);
         eventQueryWrapper.eq("owner_id", userId);
@@ -102,8 +103,19 @@ public class ScheduleServerImpl implements ScheduleServer {
         if (queryDateRangeDTO.getEarliestOn() == null || queryDateRangeDTO.getLatestOn() == null
                 || queryDateRangeDTO.getEarliestOn() > queryDateRangeDTO.getLatestOn())
             return ResponseResult.fail("查询时间范围错误");
+        // 查找的日程开始或结束时间在查询时间范围内即可
+//        List<Event> eventList = eventMapper.selectRangeSchedule(userId, queryDateRangeDTO.getEarliestOn(), queryDateRangeDTO.getLatestOn());
 
-        List<Event> eventList = eventMapper.selectRangeSchedule(userId, queryDateRangeDTO.getEarliestOn(), queryDateRangeDTO.getLatestOn());
+        QueryWrapper<Event> eventQueryWrapper = new QueryWrapper<>();
+        eventQueryWrapper.eq("owner_id", userId);
+        eventQueryWrapper.and(wrapper -> wrapper
+                .between("begin_at", queryDateRangeDTO.getEarliestOn(), queryDateRangeDTO.getLatestOn())
+                .or()
+                .between("end_at", queryDateRangeDTO.getEarliestOn(), queryDateRangeDTO.getLatestOn())
+        );
+        // 然后按时间排序(begin_at为第一关键字，end_at为第二关键字)
+        eventQueryWrapper.orderByAsc("begin_at", "end_at");
+        List<Event> eventList = eventMapper.selectList(eventQueryWrapper);
 //        if(eventList==null){
 //            eventList = new ArrayList<>();
 //        }

@@ -17,11 +17,11 @@ import java.util.Map;
 public interface ScheduleServer {
     ResponseResult<NullData> insertSchedule(String userId, ScheduleDTO scheduleDTO);
 
-    ResponseResult<NullData> deleteSchedule(String userId, Integer scheduleId);
+    ResponseResult<NullData> deleteSchedule(String userId, Long scheduleId);
 
-    ResponseResult<NullData> updateSchedule(String userId, Integer scheduleId, ScheduleDTO scheduleDTO);
+    ResponseResult<NullData> updateSchedule(String userId, Long scheduleId, ScheduleDTO scheduleDTO);
 
-    ResponseResult<Event> selectOneSchedule(String userId, Integer scheduleId);
+    ResponseResult<Event> selectOneSchedule(String userId, Long scheduleId);
 
     ResponseResult<Map<String, Object>> selectRangeSchedule(String userId, QueryDateRangeDTO queryDateRangeDTO);
 

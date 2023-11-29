@@ -3,8 +3,10 @@ package org.emoration.lifeedge.service;
 import org.emoration.lifeedge.common.NullData;
 import org.emoration.lifeedge.common.ResponseResult;
 import org.emoration.lifeedge.controller.DTO.TutorialDTO;
+import org.emoration.lifeedge.pojo.Tutorial;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author czh
@@ -14,11 +16,11 @@ import java.util.List;
 public interface TutorialServer {
     ResponseResult<NullData> insertTutorial(String userId, TutorialDTO tutorialDTO);
 
-    ResponseResult<NullData> deleteTutorial(String userId, Integer tutorialId);
+    ResponseResult<NullData> deleteTutorial(String userId, Long tutorialId);
 
-    ResponseResult<NullData> updateTutorial(String userId, TutorialDTO tutorialDTO);
+    ResponseResult<NullData> updateTutorial(String userId, Long tutorialId,TutorialDTO tutorialDTO);
 
-    ResponseResult<TutorialDTO> selectTutorial(String userId, Integer tutorialId);
+    ResponseResult<Tutorial> selectTutorial(String userId, Long tutorialId);
 
-    ResponseResult<List<TutorialDTO>> selectAllTutorial(String userId);
+    ResponseResult<Map<String,List<Tutorial>>> selectAllTutorial(String userId);
 }

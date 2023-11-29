@@ -37,4 +37,20 @@ public class CourseDTO {
      * 枚举:1单周2双周3每周
      */
     private Integer oddEven;
+    /**
+     * 地点
+     */
+    private String place;
+    /**
+     * 老师
+     */
+    private String teacher;
+    /**
+     * 星期几(1~7)
+     */
+    private Integer weekDayNum;
+    /**
+     * 第几节(1~11)
+     */
+    private Integer classNum;
 }

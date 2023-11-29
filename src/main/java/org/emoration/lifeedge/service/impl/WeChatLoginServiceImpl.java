@@ -1,5 +1,6 @@
 package org.emoration.lifeedge.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.emoration.lifeedge.common.ResponseResult;
 import org.emoration.lifeedge.controller.DTO.WeChatLoginResponse;
@@ -32,9 +33,9 @@ public class WeChatLoginServiceImpl implements WeChatLoginService {
     private UserMapper userMapper;
     @Autowired
     private ObjectMapper objectMapper; // Jackson 的 ObjectMapper
-    @Value("wx.appId")
+    @Value("${wx.appId}")
     private String appId;
-    @Value("wx.appSecret")
+    @Value("${wx.appSecret}")
     private String appSecret;
 
     private WeChatLoginResponse doWeChatLogin(String code, String appId, String appSecret) {
@@ -69,7 +70,15 @@ public class WeChatLoginServiceImpl implements WeChatLoginService {
          * -1	system error	系统繁忙，此时请开发者稍候再试
          */
         if (weChatLoginResponse.getErrcode() == null) {
-            userMapper.insert(new User(weChatLoginResponse.getOpenid(), null, weChatLoginResponse.getOpenid()));
+            // select是否有这个用户
+            QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("user_id", weChatLoginResponse.getOpenid());
+            if (userMapper.selectCount(queryWrapper) == 0) { // 没有这个用户
+                // insert
+                if (userMapper.insert(new User(weChatLoginResponse.getOpenid(), null, weChatLoginResponse.getOpenid())) == 0) {
+                    return ResponseResult.fail("用户" + weChatLoginResponse.getOpenid() + "插入失败");
+                }
+            }
             return ResponseResult.data(Map.of("token", tokenUtil.getTokenByUserId(weChatLoginResponse.getOpenid())));
         } else {
             return ResponseResult.fail(weChatLoginResponse.getErrmsg());

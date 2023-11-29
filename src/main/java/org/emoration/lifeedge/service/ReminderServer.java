@@ -7,6 +7,7 @@ import org.emoration.lifeedge.controller.DTO.ReminderDTO;
 import org.emoration.lifeedge.pojo.Reminder;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author czh
@@ -14,15 +15,16 @@ import java.util.List;
  * @Date 2023/11/16
  */
 public interface ReminderServer {
-    ResponseResult<NullData> insertReminder(String userId, ReminderDTO reminderDTO);
 
-    ResponseResult<NullData> deleteReminder(String userId, Integer reminderId);
+    ResponseResult<NullData> insertReminder(String userId, ReminderDTO reminderDTO, Long scheduleId);
 
-    ResponseResult<NullData> updateReminder(String userId, ReminderDTO reminderDTO);
+    ResponseResult<NullData> deleteReminder(String userId, Long reminderId);
 
-    ResponseResult<Reminder> selectOneReminder(String userId, Integer reminderId);
+    ResponseResult<NullData> updateReminder(String userId, Long reminderId, ReminderDTO reminderDTO);
 
-    ResponseResult<List<Reminder>> selectRangeReminder(String userId, QueryDateRangeDTO queryDateRangeDTO);
+    ResponseResult<Map<String, Object>> selectOneReminder(String userId, Long reminderId);
 
-    ResponseResult<List<Reminder>> selectAllReminder(String userId);
+    ResponseResult<Map<String, Object>> selectRangeReminder(String userId, QueryDateRangeDTO queryDateRangeDTO);
+
+    ResponseResult<Map<String, Object>>  selectAllReminder(String userId);
 }
