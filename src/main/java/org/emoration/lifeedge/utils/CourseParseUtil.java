@@ -6,10 +6,8 @@ import org.emoration.lifeedge.pojo.Event;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Author czh
@@ -116,6 +114,24 @@ public class CourseParseUtil {
             String[][] courseArray = courseListToCourseArray(courseList);
             // 将课程列表转为事件列表
             List<Event> eventList = courseArray_to_eventList(courseArray, termBeginTimestamp);
+            List<Event> sortedEvents = eventList.stream()
+                    .sorted(Comparator.comparing(Event::getName)
+                            .thenComparing(Event::getBeginAt))
+                    .toList();
+            List<Event> mergedEvents = new ArrayList<>();
+            for (Event event : sortedEvents) {
+                if (mergedEvents.isEmpty()) {
+                    mergedEvents.add(event);
+                    continue;
+                }
+                Event lastEvent = mergedEvents.get(mergedEvents.size() - 1);
+                if (Math.abs(lastEvent.getEndAt() - event.getBeginAt()) <= 7200 && lastEvent.getName().equals(event.getName())) {
+                    lastEvent.setEndAt(event.getEndAt());
+                } else {
+                    mergedEvents.add(event);
+                }
+            }
+            eventList = mergedEvents;
             // 生成课程名->颜色的map
             Map<String, Integer> colorMap = new HashMap<>();
             for (Event value : eventList) {
@@ -227,9 +243,9 @@ public class CourseParseUtil {
     private static String[][] courseListToCourseArray(List<List<String>> courseList) {
         String[][] courseArray = new String[7][11];
         for (int i = 0; i < 11; i++) {
-            for (int i1 = 1; i1 < 8; i1++) {
+            for (int i1 = 0; i1 < 7; i1++) {
                 // 记录到courseArray中
-                courseArray[i1 - 1][i] = courseList.get(i).get(i1);
+                courseArray[i1][i] = courseList.get(i).get(i1);
             }
         }
         return courseArray;
@@ -249,7 +265,7 @@ public class CourseParseUtil {
     }
 
     /**
-     * 函数：将每节课(确定只有一节课)转为结构体，需要指定颜色
+     * 函数：将每节课(确定只有一节课)转为结构体
      *
      * @param courseString       一节课的课程string
      * @param weekDayNum         周数 1~22
@@ -291,6 +307,7 @@ public class CourseParseUtil {
         return eventList;
     }
 
+    // 将课程列表转为事件列表
     private static List<Event> courseArray_to_eventList(String[][] courseArray, long termBeginTimestamp) throws Exception {
         List<Event> eventList = new ArrayList<>();
         for (int i1 = 0; i1 < 7; i1++) {

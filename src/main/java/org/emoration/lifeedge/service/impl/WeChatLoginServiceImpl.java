@@ -72,7 +72,7 @@ public class WeChatLoginServiceImpl implements WeChatLoginService {
         if (weChatLoginResponse.getErrcode() == null) {
             // select是否有这个用户
             QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("user_id", weChatLoginResponse.getOpenid());
+            queryWrapper.eq("id", weChatLoginResponse.getOpenid());
             if (userMapper.selectCount(queryWrapper) == 0) { // 没有这个用户
                 // insert
                 if (userMapper.insert(new User(weChatLoginResponse.getOpenid(), null, weChatLoginResponse.getOpenid())) == 0) {

@@ -103,7 +103,7 @@ public class TokenUtil {
     public User parseTokenToUser(String token) {
         String userId = parseTokenToUserId(token);
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("user_id", userId);
+        wrapper.eq("id", userId);
         return userMapper.selectOne(wrapper);
     }
 
