@@ -93,7 +93,7 @@ public class AccountController {
         String userId;
         try {
             userId = tokenUtil.parseTokenToUserId(token);
-            if(userId == null) throw new Exception();
+            if (userId == null) throw new Exception();
         } catch (Exception e) {
             return ResponseResult.fail("token错误");
         }
@@ -106,7 +106,7 @@ public class AccountController {
         String userId;
         try {
             userId = tokenUtil.parseTokenToUserId(token);
-            if(userId == null) throw new Exception();
+            if (userId == null) throw new Exception();
         } catch (Exception e) {
             return ResponseResult.fail("token错误");
         }

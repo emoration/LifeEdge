@@ -27,69 +27,17 @@ public class UserServerImpl implements UserServer {
 
     @Autowired
     UserMapper userMapper;
-    //    @Autowired
-//    AuthenticationManager authenticationManager;
     @Autowired
     TokenUtil tokenUtil;
 
     @Override
     public ResponseResult<NullData> register(String username, String password) {
         return ResponseResult.fail("注册功能已经被弃用，请使用微信登录");
-//        if (!PasswordUtil.valid(password)) {
-//            return ResponseResult.fail("密码不符合规范");
-//        }
-//        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
-//        userQueryWrapper.eq("username", username);
-//        if (userMapper.selectOne(userQueryWrapper) != null) {
-//            return ResponseResult.fail("用户名被占用");
-//        }
-//        User user = new User();
-//        user.setUsername(username);
-//        user.setPassword(PasswordUtil.encode(password));
-//        if (userMapper.insert(user) == 1) {
-//            return ResponseResult.success("成功注册");
-//        } else {
-//            return ResponseResult.fail("服务器未知错误");
-//        }
     }
 
     @Override
     public ResponseResult<Map<String, String>> login(String username, String password) {
-        return ResponseResult.fail("登陆功能已经被弃用，请使用微信登录");
-////        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-////        try {
-//            QueryWrapper<User> wrapper = new QueryWrapper<>();
-//            wrapper.eq("username", username);
-//            User user = userMapper.selectOne(wrapper);
-////            if(redisUtil.hasKey("freeze:" + username))
-////                return new ResponseResult<>(CodeConstants.CODE_USER_EXCEPTION, "该用户已经被冻结");
-////            authenticationManager.authenticate(authenticationToken);
-////            if(redisUtil.hasKey("fail_login : " + username))
-////                redisUtil.delete("fail_login : " + username);
-//            String jwt = tokenUtil.getTokenByUserId(user.getId());
-//            HashMap<String, String> map = new HashMap<>();
-//            map.put("token", jwt);
-////            if (Objects.equals(userMapper.selectRoleByUserId(user.getUserId()), "ROLE_MANAGER"))
-////                map.put("role", "2");
-////            else
-////                map.put("role", "1");
-//            return new ResponseResult<>(CodeConstants.CODE_SUCCESS, "登陆成功", map);
-////        } catch (AuthenticationException e) {
-//////            if (redisUtil.hasKey("fail_login : " + username)) {
-//////                redisUtil.set("fail_login : " + username, (Integer) redisUtil.get("fail_login : " + username) + 1);
-//////                if ((Integer) redisUtil.get("fail_login : " + username) > ParameterConstants.MAX_NUMBER_OF_FAIL) {
-//////                    redisUtil.set("freeze:" + username, "true", 3600);
-//////                    return new ResponseResult<>(CodeConstants.CODE_USER_EXCEPTION, "该用户已达最大密码错误次数,已经被暂时冻结账户");
-//////                }
-//////            } else {
-//////                redisUtil.set("fail_login : " + username, 1);
-//////            }
-////        } finally {
-////
-////        }
-//
-////        return new ResponseResult<>(CodeConstants.CODE_UNAUTHORIZED, "登陆失败");
-////        return null;
+        return ResponseResult.fail("密码登陆功能已经被弃用，请使用微信登录");
     }
 
     @Override

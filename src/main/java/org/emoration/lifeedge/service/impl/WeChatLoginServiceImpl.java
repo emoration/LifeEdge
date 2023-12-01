@@ -45,16 +45,7 @@ public class WeChatLoginServiceImpl implements WeChatLoginService {
                 "&secret=" + appSecret +
                 "&js_code=" + code +
                 "&grant_type=authorization_code";
-//        String response = restTemplate.getForObject(url, String.class);
-//        try {
-//            // 手动解析 JSON 字符串
-//            WeChatLoginResponse loginResponse = objectMapper.readValue(response, WeChatLoginResponse.class);
-//            return loginResponse;
-//        } catch (Exception e) {
-//            // 处理异常
-//            e.printStackTrace();
-//            return null;
-//        }
+
         ResponseEntity<WeChatLoginResponse> responseEntity = restTemplate.getForEntity(url, WeChatLoginResponse.class);
         return responseEntity.getBody();
     }

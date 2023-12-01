@@ -16,8 +16,6 @@ public class PasswordUtil {
     // 密码匹配的正则表达式模式
     private static final Pattern passwordPattern = Pattern.compile(
             "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[`~!@#$%^&*()\\-_=+\\[{\\]}\\\\|;:'\",<.>/?])[A-Za-z\\d`~!@#$%^&*()\\-_=+\\[{\\]}\\\\|;:'\",<.>/?]{8,16}$");
-//    @Value("${bcrypt.salt}")
-    // FIXME 先写死，不然会报错
     private static String BCryptSalt = "czh";
 
     static public boolean valid(String password) {

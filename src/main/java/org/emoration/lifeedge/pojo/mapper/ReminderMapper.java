@@ -14,5 +14,6 @@ import java.util.List;
 @Mapper
 public interface ReminderMapper extends BaseMapper<Reminder> {
     List<Reminder> selectRangeReminderByUserId(String userId, Integer earliestOn, Integer latestOn);
+
     List<Reminder> selectAllReminderByUserId(String userId);
 }

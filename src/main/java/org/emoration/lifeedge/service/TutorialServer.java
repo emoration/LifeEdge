@@ -18,9 +18,9 @@ public interface TutorialServer {
 
     ResponseResult<NullData> deleteTutorial(String userId, Long tutorialId);
 
-    ResponseResult<NullData> updateTutorial(String userId, Long tutorialId,TutorialDTO tutorialDTO);
+    ResponseResult<NullData> updateTutorial(String userId, Long tutorialId, TutorialDTO tutorialDTO);
 
     ResponseResult<Tutorial> selectTutorial(String userId, Long tutorialId);
 
-    ResponseResult<Map<String,List<Tutorial>>> selectAllTutorial(String userId);
+    ResponseResult<Map<String, List<Tutorial>>> selectAllTutorial(String userId);
 }
